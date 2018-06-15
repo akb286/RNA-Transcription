@@ -1,17 +1,26 @@
-var translations = {
-  A: 'U',
-  T: 'A',
-  C: 'G',
-  G: 'C'
+const dnaRnaMap = {
+  G: "C",
+  C: "G",
+  T: "A",
+  A: "U"
 };
 
-function toRna(strand) {
-  strand = strand.split('');
-  return strand.map(translate).join('');
+class DnaTranscriber {
+  toRna(sequence) {
+    let result = "";
+
+    for (let i = 0; i < sequence.length; i++) {
+      const mappedNucleotide = dnaRnaMap[sequence[i]];
+
+      if (!mappedNucleotide) {
+        throw new Error(`Invalid input`);
+      }
+
+      result += dnaRnaMap[sequence[i]];
+    }
+
+    return result;
+  }
 }
 
-function translate(nucleotide) {
-  return translations[nucleotide];
-}
-
-module.exports = toRna;
+module.exports = DnaTranscriber;
